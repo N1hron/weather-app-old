@@ -12,7 +12,7 @@ export default function useWeatherAPI() {
     }
 
     async function getGeographicalCoordinates(city) {
-        const response = await request(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
+        const response = await request(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
         const {lat, lon} = response[0];
         return {lat, lon};
     }
