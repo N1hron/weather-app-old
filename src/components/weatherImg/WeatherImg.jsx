@@ -20,6 +20,8 @@ export default function weatherImg(type) {
             return clouds;
         case 'shower rain':
             return rain;
+        case 'light rain':
+            return rain;
         case 'rain':
             return rain;
         case 'thunderstorm':

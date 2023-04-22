@@ -3,10 +3,10 @@ import weatherImg from '../weatherImg/WeatherImg';
 import './weatherInfo.scss';
 
 
-export default function WeatherInfo({data, city}) {
+export default function WeatherInfo({data}) {
     const handleTimezone = (tz) => tz > 0 ? `+${tz}` : tz,
           handleHours = (sec, timezone) => {
-            const hours = Math.floor(sec / 60 / 60 % 24) + Math.floor(timezone / 60 / 60);
+            const hours = Math.floor((sec + timezone) / 60 / 60 % 24);
             return hours === 24 ? 0 : hours;
           },
           insertZero = (unit) => `${unit}`.length < 2 ? `0${unit}` : unit;
@@ -14,7 +14,7 @@ export default function WeatherInfo({data, city}) {
     function handleData() {
         return !data || data.length === 0 ? null :
         {
-            name: data.name,
+            name: data.location,
             timezone: `UTC${handleTimezone(data.timezone / 60 / 60)}`,
             hours: insertZero(handleHours(data.dt, data.timezone)),
             minutes: insertZero(Math.floor((data.dt / 60 % 60))),
@@ -26,10 +26,11 @@ export default function WeatherInfo({data, city}) {
     }
 
     const renderData = handleData();
+    console.log(data)
     return (
         <div className="weather">
             <div id="today" className="weather__card">
-                <h2>{city}</h2>
+                <h2>{renderData.name}</h2>
                 <p className="time">Today: {renderData?.hours + ':' + renderData?.minutes + ' ' + renderData?.timezone}</p>
                 <p className="weather-type">{`${renderData?.weather}: ${renderData?.description}`}</p>
                 <img src={weatherImg(renderData?.description)} alt={`${renderData?.weather}`} draggable={false}/>

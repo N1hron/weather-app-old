@@ -12,6 +12,7 @@ import darkBg from '../../assets/dark-bg.jpg';
 function App() {
   const [theme, setTheme] = useState('dark'),
         [city, setCity] = useState(null),
+        [location, setLocation] = useState(null),
         [data, setData] = useState(null)
   
   const {getData, getGeographicalCoordinates, process, setProcess} = useWeatherAPI();
@@ -20,6 +21,10 @@ function App() {
       if(city)  {
         console.log('data')
         getGeographicalCoordinates(city)
+          .then(res => {
+            setLocation(res.name);
+            return res;
+          })
           .then(getData)
           .then(setData)
           .then(() => setProcess('success'))
@@ -42,7 +47,7 @@ function App() {
       <Header onThemeChange={onThemeChange} setCity={setCity} theme={theme}/>
       <main>
         <div className="container">
-          {renderData(<WeatherInfo data={data} city={city}/>, process)}
+          {renderData(<WeatherInfo data={{...data, location}}/>, process)}
           {/* <WeatherInfo/> */}
           {/* {renderData(null, 'loading')} */}
         </div>
