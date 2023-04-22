@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import useWeatherAPI from '../../services/WeatherAPI';
 
 import Header from '../header/Header';
-import WeatherInfo from '../weatherInfo/weatherInfo';
+import WeatherInfo from '../weatherInfo/WeatherInfo';
 import renderData from '../../utils/renderData';
 
 import './App.scss'
