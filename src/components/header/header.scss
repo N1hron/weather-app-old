@@ -1,0 +1,93 @@
+.header {
+    height: 70px;
+    width: 100vw;
+    max-width: 1280px;
+    margin: 0 auto 0;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--main-color);
+
+    form {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        max-width: 359px;
+        width: 100%;
+
+        input {
+            height: 35px;
+            padding: 5px;
+            color: var(--form-color);
+            border: 1px solid var(--secondary-color);
+            font-size: 20px;
+            background-color: #F4FAFF;
+            outline: none;
+        }
+
+        button {
+            height: 35px;
+            width: auto;
+            font-size: 20px;
+            width: 4em;
+            margin-left: 5px;
+            color: var(--main-color);
+            border: 1px solid var(--btn-color);
+            border-radius: 5px;
+            background-color: var(--btn-color);
+            cursor: pointer;
+            transition: filter 0.1s;
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+        }
+    }
+
+    &__logo {
+        height: 100%;
+        cursor: pointer;
+        transition: scale 0.2s;
+
+        &:hover {
+            scale: 1.1;
+        }
+    }
+
+    &__title {
+        height: 100%;
+        display: flex;
+    }
+
+    h1 {
+        font-size: 45px;
+        font-weight: 400;
+        color: var(--secondary-color);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        user-select: none;
+    }
+}
+
+.theme-switch {
+    width: 40px;
+    height: 40px;
+}
+
+@media(max-width: 800px) {
+    .header {
+        flex-direction: column;
+        height: 200px; 
+
+        h1 {
+            margin-left: 0px;
+        }
+    }
+
+    input {
+        width: 100%;
+    }
+}

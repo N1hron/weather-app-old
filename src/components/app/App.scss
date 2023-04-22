@@ -1,0 +1,39 @@
+:root {
+    --main-color: #F4FAFF;
+    --secondary-color: #1B2432;
+    --btn-color: #1B2432;
+    --bg-image: url('../../assets/light-bg.jpg');
+    --card-color: rgba(19, 25, 35, 0.494);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Work Sans', sans-serif;
+}
+
+body {
+    background-image: var(--bg-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#root {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1280px;
+    width: 100vw;
+    height: 100%;
+    background-color: var(--main-color);
+    margin: 0px auto;
+}
+
+main {
+    backdrop-filter: blur(10px);
+    flex-grow: 1;
+}
