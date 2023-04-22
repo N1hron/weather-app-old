@@ -1,4 +1,3 @@
-import TodayCard from '../todayCard/TodayCard';
 import weatherImg from '../weatherImg/WeatherImg';
 
 import './weatherInfo.scss';
