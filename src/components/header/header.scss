@@ -81,7 +81,8 @@
 @media(max-width: 800px) {
     .header {
         flex-direction: column;
-        height: 200px; 
+        height: 200px;
+        min-height: 200px; 
 
         h1 {
             margin-left: 0px;
