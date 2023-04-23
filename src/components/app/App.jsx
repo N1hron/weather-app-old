@@ -48,8 +48,6 @@ function App() {
       <main>
         <div className="container">
           {renderData(<WeatherInfo data={{...data, location}}/>, process)}
-          {/* <WeatherInfo/> */}
-          {/* {renderData(null, 'loading')} */}
         </div>
       </main>
     </>
