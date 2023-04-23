@@ -13,13 +13,12 @@ function App() {
   const [theme, setTheme] = useState('dark'),
         [city, setCity] = useState(null),
         [location, setLocation] = useState(null),
-        [data, setData] = useState(null)
+        [data, setData] = useState(null);
   
   const {getData, getGeographicalCoordinates, process, setProcess} = useWeatherAPI();
-  console.log(process);
+
   useEffect(() => {
       if(city)  {
-        console.log('data')
         getGeographicalCoordinates(city)
           .then(res => {
             setLocation(res.name);
@@ -30,6 +29,7 @@ function App() {
           .then(() => setProcess('success'))
           .catch(() => setProcess('error'));
       }
+       // eslint-disable-next-line
   }, [city])
 
   useEffect(() => {

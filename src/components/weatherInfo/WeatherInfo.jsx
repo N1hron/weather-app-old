@@ -4,6 +4,7 @@ import './weatherInfo.scss';
 
 
 export default function WeatherInfo({data}) {
+    console.log('render')
     const handleTimezone = (tz) => tz > 0 ? `+${tz}` : tz,
           handleHours = (sec, timezone) => {
             const hours = Math.floor((sec + timezone) / 60 / 60 % 24);
@@ -26,7 +27,6 @@ export default function WeatherInfo({data}) {
     }
 
     const renderData = handleData();
-    console.log(data)
     return (
         <div className="weather">
             <div id="today" className="weather__card">
