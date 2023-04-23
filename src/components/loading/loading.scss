@@ -3,6 +3,6 @@
     max-width: 300px;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: calc(50% - 35px);
     transform: translate(-50%, -50%);
 }
