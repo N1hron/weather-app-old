@@ -13,13 +13,14 @@
 }
 
 body {
-    background-image: var(--bg-image);
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 640px;
 }
 
 #root {
     display: flex;
+    min-height: 640px;
     height: 100vh;
     flex-direction: column;
 }

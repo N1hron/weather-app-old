@@ -36,7 +36,7 @@ function App() {
     document.documentElement.style.setProperty('--main-color', (theme === 'dark' ? '#1B2432' : '#F4FAFF'));
     document.documentElement.style.setProperty('--secondary-color', (theme === 'dark' ? '#F4FAFF' : '#1B2432'));
     document.documentElement.style.setProperty('--btn-color', (theme === 'dark' ? '#dfd898' : '#1B2432'));
-    document.documentElement.style.backgroundImage = `url(${theme === 'dark' ? darkBg : lightBg})`;
+    document.body.style.backgroundImage = `url(${theme === 'dark' ? darkBg : lightBg})`;
     document.documentElement.style.setProperty('--card-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.494)' : '#f6fbff'));
   }, [theme])
 
