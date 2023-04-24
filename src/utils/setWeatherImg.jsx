@@ -1,12 +1,12 @@
-import clouds from '../../assets/clouds.svg';
-import fewClouds from '../../assets/few-clouds.svg';
-import mist from '../../assets/mist.svg';
-import rain from '../../assets/rain.svg';
-import snow from '../../assets/snow.svg';
-import sun from '../../assets/sun.svg';
-import thunderstorm from '../../assets/thunderstorm.svg';
+import clouds from '../assets/clouds.svg';
+import fewClouds from '../assets/few-clouds.svg';
+import mist from '../assets/mist.svg';
+import rain from '../assets/rain.svg';
+import snow from '../assets/snow.svg';
+import sun from '../assets/sun.svg';
+import thunderstorm from '../assets/thunderstorm.svg';
 
-export default function weatherImg(type) {
+export default function setWeatherImg(type) {
     switch(type) {
         case 'clear sky':
             return sun;

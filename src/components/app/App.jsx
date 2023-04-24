@@ -15,7 +15,12 @@ function App() {
         [location, setLocation] = useState(null),
         [data, setData] = useState(null);
   
-  const {getData, getGeographicalCoordinates, process, setProcess} = useWeatherAPI();
+  const {
+    getGeographicalCoordinates,
+    getWeather,
+    process, 
+    setProcess
+  } = useWeatherAPI();
 
   useEffect(() => {
       if(city)  {
@@ -24,7 +29,7 @@ function App() {
             setLocation(res.name);
             return res;
           })
-          .then(getData)
+          .then(getWeather)
           .then(setData)
           .then(() => setProcess('success'))
           .catch(() => setProcess('error'));
@@ -47,7 +52,9 @@ function App() {
       <Header onThemeChange={onThemeChange} setCity={setCity} theme={theme}/>
       <main>
         <div className="container">
-          {renderData(<WeatherInfo data={{...data, location}}/>, process)}
+          {renderData(<WeatherInfo 
+                        current={{...data?.current, location}}
+                        today={data?.today}/>, process)}
         </div>
       </main>
     </>
