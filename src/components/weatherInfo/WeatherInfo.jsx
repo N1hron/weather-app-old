@@ -1,14 +1,13 @@
 import CurrentCard from './CurrentCard';
-import TodayCard from './TodayCard';
+import ForecastCard from './ForecastCard';
 
 import './weatherInfo.scss';
 
-export default function WeatherInfo({current, today}) {
+export default function WeatherInfo({data, setDate}) {
     return (
         <div className="weather">
-            <CurrentCard data={current}/>
-            <TodayCard data={today}/>
-            {/* <div className="weather__card weather__card_wide"></div> */}
+            <CurrentCard data={data.current}/>
+            <ForecastCard data={data.forecast} dates={data.dates} setDate={setDate}/>
         </div>
     )
 }

@@ -1,68 +1,54 @@
 import useHttp from "../hooks/http.hook";
 
+const apiKey = 'ecbf19a2290c47d6a99213735232404';
+
 export default function useWeatherAPI() {   
     const {request, setProcess, process} = useHttp();
 
-    const apiKey = 'fb892f52993e357f7e4654a5a9bbc648';
-
-    async function getGeographicalCoordinates(city) {
-        const response = await request(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`)
-        const {name, lat, lon} = response[0];
-        return {name, lat, lon};
-    }
-
-    async function getCurrentWeather(lat, lon) {
-        const response = await request(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-        return handleCurrentWeatherData(response);
-    }
-
-    async function getfiveDaysWeather(lat, lon) {
-        const response = await request(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-        return response;
-    }
-
-    async function getWeather({lat, lon}) {
-        const current = await getCurrentWeather(lat, lon);
-        const fiveDays = await getfiveDaysWeather(lat, lon);
-        const today = handleTodayWeatherData(fiveDays);
-        return {current, fiveDays, today};
-    }
-
-    const handleTimezone = (tz) => tz > 0 ? `+${tz}` : tz,
-          insertZero = (unit) => `${unit}`.length < 2 ? `0${unit}` : unit;
-
-    function handleHours(sec, timezone) {
-            const hours = Math.floor((sec + timezone) / 60 / 60 % 24);
-            return hours === 24 ? 0 : hours;
+    async function getWeather(location, days) {
+        const response = await request(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=no&alerts=no`);
+        const current = handleCurrentWeatherData(response),
+              forecast = handleForecastData(response, days),
+              dates = handleDates(response);
+        return {current, forecast, dates};
     }
           
     function handleCurrentWeatherData(data) {
         return {
-            location: data.location,
-            country: data.sys.country,
-            timezone: `UTC${handleTimezone(data.timezone / 60 / 60)}`,
-            hours: insertZero(handleHours(data.dt, data.timezone)),
-            minutes: insertZero(Math.floor((data.dt / 60 % 60))),
-            temperature: Math.round(-273.15 + data.main.temp),
-            feels_like: Math.round(-273.15 + data.main.feels_like),
-            weather: data.weather[0].main,
-            description: data.weather[0].description,
-            wind: data.wind.speed,
-            humidity: data.main.humidity
+            name: data.location.name,
+            country: data.location.country,
+            localtime: data.location.localtime.split(' ')[1],
+            tempC: Math.round(data.current.temp_c),
+            tempF: Math.round(data.current.temp_f),
+            feelsLikeC: Math.round(data.current.feelslike_c),
+            feelsLikeF: Math.round(data.current.feelslike_f),
+            weather: data.current.condition.text,
+            code: data.current.condition.code,
+            timeOfDay: data.current.condition.icon.includes('night') ? 'night' : 'day',
+            wind: (data.current.wind_kph / 3.6).toFixed(1),
+            humidity: data.current.humidity
         } 
     }
 
-    function handleTodayWeatherData(data) {
-        return data.list.slice(0, 9).map(elem => {
+    function handleForecastData(data, day) {
+        const hours = data.forecast.forecastday[day - 1].hour.filter((hour, i) => i % 3 === 0);
+        return hours.map((hour) => {
             return {
-                date: elem.dt_txt.slice(5, 10),
-                hours: insertZero(handleHours(elem.dt, data.city.timezone)),
-                minutes: insertZero(Math.floor((elem.dt / 60 % 60))),
-                temperature: Math.round(-273.15 + elem.main.temp),
-                weather: elem.weather[0].description
-            }
-        })
+                time: hour.time.split(' ')[1],
+                date: hour.time.slice(5, 10),
+                tempC: Math.round(hour.temp_c),
+                tempF: Math.round(hour.temp_f),
+                humidity: hour.humidity,
+                wind: (hour.wind_kph / 3.6).toFixed(1),
+                timeOfDay: hour.condition.icon.includes('night') ? 'night' : 'day',
+                code: hour.condition.code,
+            }     
+        });
     }
 
-    return {getGeographicalCoordinates, getWeather, process, setProcess};
+    function handleDates(data) {
+        return data.forecast.forecastday.map(day => day.date);
+    }
+
+    return {getWeather, process, setProcess};
 }

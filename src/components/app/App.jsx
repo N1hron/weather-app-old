@@ -12,11 +12,10 @@ import darkBg from '../../assets/dark-bg.jpg';
 function App() {
   const [theme, setTheme] = useState('dark'),
         [city, setCity] = useState(null),
-        [location, setLocation] = useState(null),
+        [date, setDate] = useState(1),
         [data, setData] = useState(null);
   
   const {
-    getGeographicalCoordinates,
     getWeather,
     process, 
     setProcess
@@ -24,18 +23,13 @@ function App() {
 
   useEffect(() => {
       if(city)  {
-        getGeographicalCoordinates(city)
-          .then(res => {
-            setLocation(res.name);
-            return res;
-          })
-          .then(getWeather)
+        getWeather(city, date)
           .then(setData)
           .then(() => setProcess('success'))
           .catch(() => setProcess('error'));
       }
        // eslint-disable-next-line
-  }, [city])
+  }, [city, date])
 
   useEffect(() => {
     document.documentElement.style.setProperty('--main-color', (theme === 'dark' ? '#1B2432' : '#F4FAFF'));
@@ -52,9 +46,7 @@ function App() {
       <Header onThemeChange={onThemeChange} setCity={setCity} theme={theme}/>
       <main>
         <div className="container">
-          {renderData(<WeatherInfo 
-                        current={{...data?.current, location}}
-                        today={data?.today}/>, process)}
+          {renderData(<WeatherInfo data={data} setDate={setDate}/>, process)}
         </div>
       </main>
     </>
