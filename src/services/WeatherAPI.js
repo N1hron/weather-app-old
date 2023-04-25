@@ -6,7 +6,7 @@ export default function useWeatherAPI() {
     const {request, setProcess, process} = useHttp();
 
     async function getWeather(location, days) {
-        const response = await request(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=no&alerts=no`);
+        const response = await request(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=no&alerts=no`);
         const current = handleCurrentWeatherData(response),
               forecast = handleForecastData(response, days),
               dates = handleDates(response);
