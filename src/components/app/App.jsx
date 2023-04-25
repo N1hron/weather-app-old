@@ -46,7 +46,7 @@ function App() {
       <Header onThemeChange={onThemeChange} setCity={setCity} theme={theme}/>
       <main>
         <div className="container">
-          {renderData(<WeatherInfo data={data} setDate={setDate}/>, process)}
+          {renderData(<WeatherInfo data={data} date={date} setDate={setDate}/>, process)}
         </div>
       </main>
     </>

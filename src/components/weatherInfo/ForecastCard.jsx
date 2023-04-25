@@ -1,6 +1,6 @@
 import setWeatherImg from "../../utils/setWeatherImg"
 
-export default function ForecastCard({data, dates, setDate}) {
+export default function ForecastCard({data, date, dates, setDate}) {
     const tempMax = data.reduce((result, current) => Math.max(result, current.tempC), 0);
     const elements = data.map((elem, i) => {
         const {tempC, code, timeOfDay, time, date} = elem;
@@ -19,7 +19,7 @@ export default function ForecastCard({data, dates, setDate}) {
         <div id="forecast" className="weather__card">
             <div className="row">
                 <h2>24 hours forecast</h2>
-                <select name="date" onChange={event => {
+                <select name="date" value={date - 1} onChange={event => {
                     event.preventDefault();
                     setDate(+event.target.value + 1);
                 }}>
