@@ -6,11 +6,12 @@ export default function useWeatherAPI() {
     const {request, setProcess, process} = useHttp();
 
     async function getWeather(location, days) {
-        const response = await request(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=no&alerts=no`);
+        const response = await request(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7&aqi=no&alerts=no`);
         const current = handleCurrentWeatherData(response),
               forecast = handleForecastData(response, days),
+              week = handleWeekData(response),
               dates = handleDates(response);
-        return {current, forecast, dates};
+        return {current, week, forecast, dates};
     }
           
     function handleCurrentWeatherData(data) {
@@ -31,7 +32,7 @@ export default function useWeatherAPI() {
     }
 
     function handleForecastData(data, day) {
-        const hours = data.forecast.forecastday[day - 1].hour.filter((hour, i) => i % 3 === 0);
+        const hours = data.forecast.forecastday[day - 1].hour.filter((hour, i) => i % 2 === 0);
         return hours.map((hour) => {
             return {
                 time: hour.time.split(' ')[1],
@@ -43,6 +44,21 @@ export default function useWeatherAPI() {
                 timeOfDay: hour.condition.icon.includes('night') ? 'night' : 'day',
                 code: hour.condition.code,
                 weather: hour.condition.text,
+            }     
+        });
+    }
+
+    function handleWeekData(data) {
+        const days = data.forecast.forecastday;
+        return days.map((day) => {
+            return {
+                date: day.date.slice(5, 10),
+                tempC: Math.round(day.day.avgtemp_c),
+                tempF: Math.round(day.day.avgtemp_f),
+                humidity: day.day.avghumidity,
+                wind: (day.day.maxwind_kph / 3.6).toFixed(1),
+                weather: day.day.condition.text,
+                code: day.day.condition.code
             }     
         });
     }

@@ -1,24 +1,10 @@
-import setWeatherImg from "../../utils/setWeatherImg";
+import renderForecast from '../../utils/renderForecast';
 
-export default function ForecastCard({data, date, dates, setDate}) {
-    const tempMax = data.reduce((result, current) => Math.max(result, current.tempC), 0);
-    const elements = data.map((elem, i) => {
-        const {tempC, code, timeOfDay, time, date, weather} = elem;
-        return (
-            <li key={i}>
-                <img src={setWeatherImg(code, timeOfDay)} alt={weather} draggable={false}/>
-                <p>{tempC}℃</p>
-                <div className="measure" draggable={false} style={{height: `${tempC / tempMax  * 125}px`}}></div>
-                <p className="time">{time}</p>
-                <p className="date">{date}</p>
-            </li>
-        )
-    })
-
+export default function ForecastCard({data, setDate, dates, date}) {
     return (
         <div id="forecast" className="weather__card">
             <div className="row">
-                <h2>24 hours forecast</h2>
+                <h2>24-hour forecast</h2>
                 <select name="date" value={date - 1} onChange={event => {
                     event.preventDefault();
                     setDate(+event.target.value + 1);
@@ -27,7 +13,7 @@ export default function ForecastCard({data, date, dates, setDate}) {
                 </select>
             </div>
             <ul>
-                {elements}
+                {renderForecast(data)}
             </ul>
         </div>
     )

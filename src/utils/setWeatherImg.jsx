@@ -8,7 +8,7 @@ import sun from '../assets/sun.svg';
 import moon from '../assets/moon.svg';
 import thunder from '../assets/thunderstorm.svg';
 
-export default function setWeatherImg(code, timeOfDay) {
+export default function setWeatherImg(code, timeOfDay = 'day') {
     if([1000].includes(code)) return timeOfDay === 'day' ? sun : moon
     else if([1003].includes(code)) return timeOfDay === 'day' ? fewCloudsDay : fewCloudsNight
     else if([1006, 1009].includes(code)) return clouds

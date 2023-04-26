@@ -45,9 +45,6 @@ function App() {
     document.documentElement.style.setProperty('--btn-color', (theme === 'dark' ? '#dfd898' : '#1B2432'));
     document.documentElement.style.setProperty('--btn-font-color', (theme === 'dark' ? '#1B2432' : '#F4FAFF'));
     document.body.style.backgroundImage = `url(${theme === 'dark' ? darkBg : lightBg})`;
-    // document.documentElement.style.setProperty('--card-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.494)' : '#f6fbff'));
-    // document.documentElement.style.setProperty('--skeleton-main-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.789)' : '#e5eaee'));
-    // document.documentElement.style.setProperty('--skeleton-secondary-color', (theme === 'dark' ? 'rgba(22, 29, 40, 0.79)' : '#edf2f7'));
   }, [theme])
 
   const onThemeChange = useCallback(() => {setTheme(theme === 'dark' ? 'light' : 'dark')}, [theme]);
