@@ -42,6 +42,7 @@ export default function useWeatherAPI() {
                 wind: (hour.wind_kph / 3.6).toFixed(1),
                 timeOfDay: hour.condition.icon.includes('night') ? 'night' : 'day',
                 code: hour.condition.code,
+                weather: hour.condition.text,
             }     
         });
     }

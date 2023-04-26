@@ -2,7 +2,7 @@ import Loading from '../components/loading/Loading';
 import Error from '../components/error/Error';
 import Skeleton from '../components/skeleton/Skeleton';
 
-export default function renderData(Component, process) {
+export default function renderData(Component, process, initial) {
     switch(process) {
         case 'idle': {
             return <Skeleton/>
@@ -11,7 +11,7 @@ export default function renderData(Component, process) {
             return <Error/>;
         }
         case 'loading': {
-            return  <Loading/>;
+            return  initial ? <Loading/> : Component;
         }
         case 'success': {
             return Component

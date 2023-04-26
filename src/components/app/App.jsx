@@ -13,7 +13,8 @@ function App() {
   const [theme, setTheme] = useState('dark'),
         [city, setCity] = useState(null),
         [date, setDate] = useState(1),
-        [data, setData] = useState(null);
+        [data, setData] = useState(null),
+        [initial, setInitial] = useState(true);
   
   const {
     getWeather,
@@ -22,10 +23,17 @@ function App() {
   } = useWeatherAPI();
 
   useEffect(() => {
+    setInitial(true);
+  }, [city])
+
+  useEffect(() => {
       if(city)  {
         getWeather(city, date)
           .then(setData)
-          .then(() => setProcess('success'))
+          .then(() => {
+            setProcess('success');
+            setInitial(false);
+          })
           .catch(() => setProcess('error'));
       }
        // eslint-disable-next-line
@@ -35,10 +43,11 @@ function App() {
     document.documentElement.style.setProperty('--main-color', (theme === 'dark' ? '#19212D' : '#F4FAFF'));
     document.documentElement.style.setProperty('--secondary-color', (theme === 'dark' ? '#F4FAFF' : '##19212D'));
     document.documentElement.style.setProperty('--btn-color', (theme === 'dark' ? '#dfd898' : '#1B2432'));
+    document.documentElement.style.setProperty('--btn-font-color', (theme === 'dark' ? '#1B2432' : '#F4FAFF'));
     document.body.style.backgroundImage = `url(${theme === 'dark' ? darkBg : lightBg})`;
-    document.documentElement.style.setProperty('--card-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.494)' : '#f6fbff'));
-    document.documentElement.style.setProperty('--skeleton-main-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.789)' : '#e5eaee'));
-    document.documentElement.style.setProperty('--skeleton-secondary-color', (theme === 'dark' ? 'rgba(22, 29, 40, 0.79)' : '#edf2f7'));
+    // document.documentElement.style.setProperty('--card-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.494)' : '#f6fbff'));
+    // document.documentElement.style.setProperty('--skeleton-main-color', (theme === 'dark' ? 'rgba(19, 25, 35, 0.789)' : '#e5eaee'));
+    // document.documentElement.style.setProperty('--skeleton-secondary-color', (theme === 'dark' ? 'rgba(22, 29, 40, 0.79)' : '#edf2f7'));
   }, [theme])
 
   const onThemeChange = useCallback(() => {setTheme(theme === 'dark' ? 'light' : 'dark')}, [theme]);
@@ -48,7 +57,7 @@ function App() {
       <Header onThemeChange={onThemeChange} setCity={setCity} theme={theme}/>
       <main>
         <div className="container">
-          {renderData(<WeatherInfo data={data} date={date} setDate={setDate}/>, process)}
+          {renderData(<WeatherInfo data={data} date={date} setDate={setDate}/>, process, initial)}
         </div>
       </main>
     </>

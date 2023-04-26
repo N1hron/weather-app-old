@@ -27,8 +27,8 @@ const MemoCurrentCard = memo(function CurrentCard({data}) {
 }, propsCompare)
 
 function propsCompare(prev, next) {
-    for (let i in prev) {
-        if(prev[i] !== next[i]) {
+    for (let i in prev.current) {
+        if(prev.current[i] !== next.current[i]) {
             return false;
         }
     }
