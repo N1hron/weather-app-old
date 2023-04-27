@@ -1,11 +1,14 @@
 import { forwardRef } from 'react';
+import Error from '../error/Error';
 
 import renderForecast from '../../utils/renderForecast';
 
 const ForecastCard = forwardRef(function ForecastCard({data, setDate, dates, date}, ref) {
     return (
         <div ref={ref} id="forecast" className="weather__card">
-            <div className="row">
+            {!data || !Object.keys(data).length ? <Error/> : 
+            <>
+                <div className="row">
                 <h2>24-hour forecast</h2>
                 <select name="date" value={date - 1} onChange={event => {
                     event.preventDefault();
@@ -13,10 +16,11 @@ const ForecastCard = forwardRef(function ForecastCard({data, setDate, dates, dat
                 }}>
                     {dates.map((date, i) => <option key={i} value={i}>{date}</option>)}
                 </select>
-            </div>
-            <ul>
-                {renderForecast(data)}
-            </ul>
+                </div>
+                <ul>
+                    {renderForecast(data)}
+                </ul>
+            </>}
         </div>
     )
 })
