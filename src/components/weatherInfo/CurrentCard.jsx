@@ -20,7 +20,7 @@ const CurrentCard = forwardRef(function CurrentCard({data}, ref) {
                     <p>{data.tempC + '℃'}</p>
                     <p>feels like {data.feelsLikeC + '℃'}</p>
                 </div>
-                <img src={setWeatherImg(data.code, data.timeofDay)} alt={`${data.weather}`} draggable={false}/>
+                <img className="weather-img" src={setWeatherImg(data.code, data.timeofDay)} alt={`${data.weather}`} draggable={false}/>
                 <p>Wind: {data.wind} m/s</p>
                 <p>Humidity: {data.humidity}%</p>
             </>}
