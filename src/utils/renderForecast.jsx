@@ -11,6 +11,7 @@ export default function renderElements(data) {
                 <img src={setWeatherImg(code, timeOfDay)} alt={weather} draggable={false}/>
                 <p>{tempC}℃</p>
                 <div className="measure" draggable={false} style={{height: `${tempC / tempMax  * 100}px`}}></div>
+                <div className="divider"></div>
                 <p>{wind} m/s</p>
                 <div className="row">
                     <p>{humidity}%</p>
