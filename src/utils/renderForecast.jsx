@@ -11,11 +11,11 @@ export default function renderElements(data) {
                 <img src={setWeatherImg(code, timeOfDay)} alt={weather} draggable={false}/>
                 <p>{tempC}℃</p>
                 <div className="measure" draggable={false} style={{height: `${tempC / tempMax  * 100}px`}}></div>
-                <div className="divider"></div>
+                {/* <div className="divider"></div> */}
                 <p>{wind} m/s</p>
                 <div className="row">
                     <p>{humidity}%</p>
-                    <img className="humidity-img" src={waterDrops} alt="water drops" />
+                    <img className="humidity-img" src={waterDrops} alt="water drops" draggable={false}/>
                 </div>
                 <p className="time">{time}</p>
                 <p className="date">{date}</p>

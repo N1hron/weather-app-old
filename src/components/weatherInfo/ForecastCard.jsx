@@ -1,8 +1,10 @@
+import { forwardRef } from 'react';
+
 import renderForecast from '../../utils/renderForecast';
 
-export default function ForecastCard({data, setDate, dates, date}) {
+const ForecastCard = forwardRef(function ForecastCard({data, setDate, dates, date}, ref) {
     return (
-        <div id="forecast" className="weather__card">
+        <div ref={ref} id="forecast" className="weather__card">
             <div className="row">
                 <h2>24-hour forecast</h2>
                 <select name="date" value={date - 1} onChange={event => {
@@ -17,4 +19,6 @@ export default function ForecastCard({data, setDate, dates, date}) {
             </ul>
         </div>
     )
-}
+})
+
+export default ForecastCard;

@@ -1,11 +1,11 @@
-import { memo } from "react";
+import { memo, forwardRef } from "react";
 
 import setWeatherImg from "../../utils/setWeatherImg";
 
-const MemoCurrentCard = memo(function CurrentCard({data}) {
+const CurrentCard = forwardRef(function CurrentCard({data}, ref) {
     const {name, country, localtime, weather, code, timeofDay, tempC, feelsLikeC, wind, humidity} = data;
     return (
-        <div id="current" className="weather__card">
+        <div ref={ref} id="current" className="weather__card">
             <div className="row">
                 <h2>{name}</h2>
                 {/* <p id="country">{country}</p> */}
@@ -24,7 +24,7 @@ const MemoCurrentCard = memo(function CurrentCard({data}) {
             <p>Humidity: {humidity}%</p>
         </div>
     )
-}, propsCompare)
+})
 
 function propsCompare(prev, next) {
     for (let i in prev.current) {
@@ -35,4 +35,4 @@ function propsCompare(prev, next) {
     return true;
 }
 
-export default MemoCurrentCard;
+export default memo(CurrentCard, propsCompare);

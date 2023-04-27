@@ -90,3 +90,28 @@
         background-position: -100%;
     }
 }
+
+@media(max-width: 955px) {
+    .skeleton {
+        grid-template-columns: 300px minmax(300px, 600px);
+    }
+}
+
+@media(max-width: 800px) {
+    .skeleton {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+@media(max-width: 659px) {
+    .skeleton {
+        grid-template-columns: 300px;
+
+        &__item {
+            &_wide, &_wider {
+                grid-column: 1/2;
+            }
+        }
+    }
+}

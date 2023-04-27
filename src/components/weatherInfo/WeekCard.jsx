@@ -1,10 +1,10 @@
-import { memo } from 'react';
+import { memo, forwardRef } from 'react';
 
 import renderForecast from '../../utils/renderForecast';
 
-const MemoWeekCard = memo(function WeekCard({data}) {
+const WeekCard = forwardRef(function WeekCard({data}, ref) {
     return (
-        <div id="week" className="weather__card">
+        <div ref={ref} id="week" className="weather__card">
             <h2>7 Day forecast</h2>
             <ul>
                 {renderForecast(data)}
@@ -22,4 +22,4 @@ function propsCompare(prev, next) {
     return true;
 }
 
-export default MemoWeekCard;
+export default memo(WeekCard, propsCompare);
