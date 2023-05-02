@@ -28,7 +28,7 @@ body {
 #root {
     display: flex;
     min-height: 568px;
-    height: 100vh;
+    // height: 100vh;
     flex-direction: column;
 }
 
@@ -38,10 +38,16 @@ body {
     height: 100%;
     background-color: var(--main-color);
     margin: 0px auto;
-    // flex: 1 0 auto;
+    min-height: calc(100vh - 70px);
 }
 
 main {
     backdrop-filter: blur(10px);
     flex-grow: 1;
+}
+
+@media(max-width: 800px) {
+    .container {
+        min-height: calc(100vh - 200px);
+    }
 }
