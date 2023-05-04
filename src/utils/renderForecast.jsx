@@ -3,14 +3,13 @@ import setWeatherImg from "./setWeatherImg";
 import waterDrops from '../assets/water-drops.svg';
 
 export default function renderForecast(data, isSmallScreen) {
-    if(isSmallScreen) {
-        console.log('small')
-    } else {
-        console.log('big')
-    }
-    const tempMax = data.reduce((result, current) => Math.max(result, current.tempC), 0);
+    const tempMax = data.reduce((result, current) => Math.max(result, current.tempC), 0),
+          tempMin = data.reduce((result, current) => Math.min(result, current.tempC), 9999);
     const elements = data.map((elem, i) => {
         const {tempC, code, timeOfDay, time, date, weather, wind, humidity} = elem;
+        
+        const measureLength = (tempC + (tempMin < 0 ? Math.abs(tempMin) + 1 : 0)) / (tempMax + (tempMin < 0 ? Math.abs(tempMin) + 1 : 0)) * 100;
+
         return (
             <li key={i}>
                 <div className="column">
@@ -21,8 +20,8 @@ export default function renderForecast(data, isSmallScreen) {
                     className="measure" 
                     draggable={false} 
                     style={isSmallScreen ? 
-                    {width: `${tempC / tempMax  * 140}px`, height: '3px', borderRadius: '0 3px 3px 0'} : 
-                    {height: `${tempC / tempMax  * 100}px`, width: '3px', borderRadius: '3px 3px 0 0'}}>
+                    {width: `${measureLength + 30}px`, height: '3px', borderRadius: '0 3px 3px 0'} : 
+                    {height: `${measureLength}px`, width: '3px', borderRadius: '3px 3px 0 0'}}>
                 </div>
                 <div className="column">
                     <p>{wind} m/s</p>
