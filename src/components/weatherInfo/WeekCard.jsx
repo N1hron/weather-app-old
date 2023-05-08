@@ -13,7 +13,7 @@ const WeekCard = forwardRef(function WeekCard({data}, ref) {
         <div ref={ref} id="week" className="weather__card">
             {!data || !Object.keys(data).length ? <Error/> :
             <>
-                <h2>7 Day forecast</h2>
+                <h2>3 Day forecast</h2>
                 <ul>
                     {renderForecast(data, isSmallScreen)}
                 </ul>
