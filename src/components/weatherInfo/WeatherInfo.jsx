@@ -1,12 +1,12 @@
 import CurrentCard from './CurrentCard';
 import ForecastCard from './ForecastCard';
-import WeekCard from './WeekCard';
+import ThreeDaysCard from './ThreeDaysCard';
 import withAnimatedCard from '../../utils/withAnimatedCard';
 
 import './weatherInfo.scss';
 
 const AnimatedCurrentCard = withAnimatedCard(CurrentCard),
-      AnimatedWeekCard = withAnimatedCard(WeekCard),
+      AnimatedWeekCard = withAnimatedCard(ThreeDaysCard),
       AnimatedForecastCard = withAnimatedCard(ForecastCard);
 
 export default function WeatherInfo({data, date, setDate}) {

@@ -4,13 +4,13 @@ import Error from '../error/Error';
 
 import renderForecast from '../../utils/renderForecast';
 
-const WeekCard = forwardRef(function WeekCard({data}, ref) {
+const ThreeDaysCard = forwardRef(function ThreeDaysCard({data}, ref) {
     const isSmallScreen = useMediaQuery({
         query: '(max-width: 888px)'
     })
 
     return (
-        <div ref={ref} id="week" className="weather__card">
+        <div ref={ref} id="three-days" className="weather__card">
             {!data || !Object.keys(data).length ? <Error/> :
             <>
                 <h2>3 Day forecast</h2>
@@ -31,4 +31,4 @@ function propsCompare(prev, next) {
     return true;
 }
 
-export default memo(WeekCard, propsCompare);
+export default memo(ThreeDaysCard, propsCompare);
