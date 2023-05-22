@@ -20,13 +20,10 @@
 body {
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 568px;
 }
 
 #root {
     display: flex;
-    min-height: 568px;
-    // height: 100vh;
     flex-direction: column;
 }
 
@@ -42,6 +39,7 @@ body {
 main {
     backdrop-filter: blur(10px);
     flex-grow: 1;
+    // max-height: calc(100vh - 70px);
 }
 
 @media(max-width: 800px) {
